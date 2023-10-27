@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Manager</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    text-align: center;
+}
+
+#form-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form h2 {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Password Manager</h1>
+    <div id="form-container">
+        <form id="save-password-form">
+            <h2>Save Password</h2>
+            <label for="site-input">Site/App Name:</label>
+            <input type="text" id="site-input">
+            <label for="password-input">Password:</label>
+            <input type="password" id="password-input">
+            <button type="button" onclick="savePassword()">Save</button>
+        </form>
+        
+        <form id="retrieve-password-form">
+            <h2>Retrieve Password</h2>
+            <label for="retrieve-site-input">Site/App Name:</label>
+            <input type="text" id="retrieve-site-input">
+            <button type="button" onclick="retrievePassword()">Retrieve</button>
+        </form>
+        
+        <div id="password-retrieval-result">
+            <h2>Retrieved Password</h2>
+            <p id="retrieved-password">The retrieved password will be displayed here.</p>
+        </div>
+    </div>
+
+    <script>
+        // Client-side JavaScript functions
+        const passwordDatabase = {};
+
+        function savePassword() {
+            const site = document.getElementById("site-input").value;
+            const password = document.getElementById("password-input").value;
+            passwordDatabase[site] = password;
+            alert(`Password for ${site} saved.`);
+        }
+
+        function retrievePassword() {
+            const siteToRetrieve = document.getElementById("retrieve-site-input").value;
+            const retrievedPassword = passwordDatabase[siteToRetrieve];
+            if (retrievedPassword) {
+                document.getElementById("retrieved-password").textContent = `Retrieved Password for ${siteToRetrieve}: ${retrievedPassword}`;
+            } else {
+                document.getElementById("retrieved-password").textContent = `Password not found for ${siteToRetrieve}`;
+            }
+        }
+    </script>
+</body>
+</html>
